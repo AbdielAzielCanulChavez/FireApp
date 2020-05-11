@@ -41,7 +41,7 @@ public class AddNotes extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_notes);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -64,35 +64,38 @@ public class AddNotes extends AppCompatActivity {
                 String nContent = noteContent.getText().toString();
 
                 if(nTitle.isEmpty() || nContent.isEmpty()){
-                    Snackbar.make(view, "Nota guardada", Snackbar.LENGTH_LONG)
+                    Snackbar.make(view, "Escribe algo para guardar", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                     return;
                 }
 
-                progressBarLoading.setVisibility(view.VISIBLE);
+
 
                 //guardar notas
+                if(!nTitle.isEmpty() && !nContent.isEmpty()) {
+                    progressBarLoading.setVisibility(view.VISIBLE);
+                    DocumentReference docref = fStore.collection("notes").document(user.getUid()).collection("mynotes").document();
+                    Map<String, Object> note = new HashMap<>();
+                    note.put("title", nTitle);
+                    note.put("content", nContent);
 
-                DocumentReference docref = fStore.collection("notes").document(user.getUid()).collection("mynotes").document();
-                Map<String, Object> note = new HashMap<>();
-                note.put("title", nTitle);
-                note.put("content", nContent);
-
-                docref.set(note).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(AddNotes.this, "Nota Agregada", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(AddNotes.this, MainActivity.class));
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(AddNotes.this, "Error intente de nuevo", Toast.LENGTH_SHORT).show();
-                       // progressBarLoading.setVisibility(view.VISIBLE);
-                    }
-                });
-                //final guardar nota
-
+                    docref.set(note).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(AddNotes.this, "Nota Agregada", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(AddNotes.this, MainActivity.class));
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(AddNotes.this, "Error intente de nuevo", Toast.LENGTH_SHORT).show();
+                            // progressBarLoading.setVisibility(view.VISIBLE);
+                        }
+                    });
+                    //final guardar nota
+                }else{
+                    Toast.makeText(AddNotes.this, "Escribe algo para guardar la nota", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });

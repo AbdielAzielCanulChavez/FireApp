@@ -12,6 +12,7 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -24,6 +25,7 @@
         android:layout_marginLeft="20dp">
 
         <LinearLayout
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -39,14 +41,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="5dp"
-                android:text="Mi nombre es Abdiel Canul Ingeniero en Sistemas Computacionales, soy desarrollador movil especializado en desarrollo nativo android con Java, ademas de poseer conocimientos en tecnologias hibridas como Ionic Framework y Flutter con Dart, soy un persona entuciasta para el emprendimiento y autodidacta, para dudas y recomendaciones puedes contactarme por las redes sociales"
+                android:text="Mi nombre es Abdiel Canul Ingeniero en Sistemas Computacionales, soy desarrollador movil especializado en desarrollo nativo android con Java, ademas de poseer conocimientos en tecnologias hibridas como Ionic Framework y Flutter con Dart, soy un persona entusiasta para el emprendimiento y autodidacta, para dudas y recomendaciones puedes contactarme por las redes sociales"
                 android:textSize="18dp"
                 android:textStyle="bold" />
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="30dp"
                 android:layout_height="wrap_content">
 
 

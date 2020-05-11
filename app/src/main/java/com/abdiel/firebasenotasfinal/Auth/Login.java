@@ -51,7 +51,7 @@ public class Login extends AppCompatActivity {
 
         spinner = findViewById(R.id.progressBar3);
 
-       // forgetPass = findViewById(R.id.forgotPasword);
+        // forgetPass = findViewById(R.id.forgotPasword);
         createAcc = findViewById(R.id.createAccount);
         user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -73,50 +73,56 @@ public class Login extends AppCompatActivity {
                 String mEmail = lEmail.getText().toString();
                 String mPassword = lPassword.getText().toString();
 
-                if(mEmail.isEmpty() || mPassword.isEmpty()){
+                if (mEmail.isEmpty() || mPassword.isEmpty()) {
                     Toast.makeText(Login.this, "Todos los campos deben ser llenados", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 spinner.setVisibility(View.VISIBLE);
 
-        //eliminar nota
+                //eliminar nota
 
-        if(fAuth.getCurrentUser().isAnonymous()){
-            FirebaseUser user = fAuth.getCurrentUser();
-            fStore.collection("notes").document(user.getUid()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    Toast.makeText(Login.this, "Todas las notas temporales se eliminaron", Toast.LENGTH_SHORT).show();
-                }
-            });
+                if (fAuth.getCurrentUser().isAnonymous()) {
+                    FirebaseUser user = fAuth.getCurrentUser();
+                       fStore.collection("notes").document(user.getUid()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                         @Override
+                       public void onSuccess(Void aVoid) {
+                    //Toast.makeText(Login.this, "Todas las notas temporales se eliminaron", Toast.LENGTH_SHORT).show();
+                      }
+                      });
 
-            //eliminar usuario temporal
-            user.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    Toast.makeText(Login.this, "Usuario temporal eliminado", Toast.LENGTH_SHORT).show();
-                }
-            });
+                    //eliminar usuario temporal
+                    user.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                           // Toast.makeText(Login.this, "Usuario temporal eliminado", Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
-        }
+                //aqui estaba su final del signIn
 
-                fAuth.signInWithEmailAndPassword(mEmail,mPassword).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                fAuth.signInWithEmailAndPassword(mEmail, mPassword).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
+
+
                         Toast.makeText(Login.this, "Success ", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         finish();
+
+
                     }
+
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(Login.this, "Error al iniciar sesion: "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Login.this, "Error al iniciar sesion: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         spinner.setVisibility(View.GONE);
                     }
                 });
 
             }
+        }//verificar
         });
 
 
