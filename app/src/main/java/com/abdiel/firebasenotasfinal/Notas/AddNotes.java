@@ -84,6 +84,7 @@ public class AddNotes extends AppCompatActivity {
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(AddNotes.this, "Nota Agregada", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(AddNotes.this, MainActivity.class));
+                            finish();//correccion de bug al crear la nota, cuando se le daba hacia atras la nota regresaba como editable
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
