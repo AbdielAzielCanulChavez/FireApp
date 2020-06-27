@@ -1,6 +1,7 @@
 package com.abdiel.firebasenotasfinal;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -97,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .build();
 
         noteAdapter = new FirestoreRecyclerAdapter<Note, NoteViewHolder>(allNotes) {
+            @RequiresApi(api = Build.VERSION_CODES.M) //esto puede causar error
             @Override
             protected void onBindViewHolder(@NonNull NoteViewHolder noteViewHolder, final int i, @NonNull final Note note) {
                 noteViewHolder.noteTitle.setText(note.getTitle());
@@ -114,6 +117,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         intent.putExtra("code", code);
                         intent.putExtra("noteId", docId);
                         v.getContext().startActivity(intent);
+
                     }
                 });
 
@@ -134,6 +138,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 intent.putExtra("content", note.getContent());
                                 intent.putExtra("noteId", docId);
                                 startActivity(intent);
+                                finish();
                                 return false;
                             }
                         });
@@ -247,15 +252,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             case R.id.notes:
                 startActivity(new Intent(this, MainActivity.class));
+                finish();
                  break;
             case R.id.addNote:
                 startActivity(new Intent(this, AddNotes.class));
                 overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+                finish();
                 break;
             case R.id.sync:
                 if(user.isAnonymous()){
                     startActivity(new Intent(this, Login.class));
                     overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+                    finish();
 
                 }else{
                     Toast.makeText(this, "Ya estas conectado", Toast.LENGTH_SHORT).show();
@@ -279,6 +287,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(getApplicationContext(), SplashActivity.class));
             overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+            finish();
 
         }
     }
@@ -336,6 +345,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             //agregar about aqui
             startActivity(new Intent(getApplicationContext(), Aboutapp.class));
+
 
         }
 

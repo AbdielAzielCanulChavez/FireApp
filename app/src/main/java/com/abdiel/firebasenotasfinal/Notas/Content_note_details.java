@@ -1,12 +1,14 @@
 package com.abdiel.firebasenotasfinal.Notas;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.abdiel.firebasenotasfinal.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -19,6 +21,7 @@ public class Content_note_details extends AppCompatActivity {
 
     Intent data;
 
+    @RequiresApi(api = Build.VERSION_CODES.M) //esto puede causar error
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +52,7 @@ public class Content_note_details extends AppCompatActivity {
                 intent.putExtra("content", data.getStringExtra("content"));
                 intent.putExtra("noteId", data.getStringExtra("noteId"));
                 startActivity(intent);
+                finish();
 
 
             }

@@ -41,7 +41,7 @@ public class EditNote extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        fStore =  fStore.getInstance();
+        fStore = fStore.getInstance();
 
         spinner = findViewById(R.id.progressBar2);
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -50,7 +50,6 @@ public class EditNote extends AppCompatActivity {
 
         editNoteContent = findViewById(R.id.editNoteContent);
         editNoteTitle = findViewById(R.id.editNoteTitle);
-
 
 
         String noteTitle = data.getStringExtra("title");
@@ -66,7 +65,7 @@ public class EditNote extends AppCompatActivity {
                 String nTitle = editNoteTitle.getText().toString();
                 String nContent = editNoteContent.getText().toString();
 
-                if(nTitle.isEmpty() || nContent.isEmpty()){
+                if (nTitle.isEmpty() || nContent.isEmpty()) {
                     Snackbar.make(v, "Clicleaste el guardar", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                     return;
@@ -87,6 +86,7 @@ public class EditNote extends AppCompatActivity {
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(EditNote.this, "Nota Agregada", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        finish();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override

@@ -39,7 +39,6 @@ public class AddNotes extends AppCompatActivity {
     ProgressBar progressBarLoading;
     FirebaseUser user;
 
-
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +83,10 @@ public class AddNotes extends AppCompatActivity {
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(AddNotes.this, "Nota Agregada", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(AddNotes.this, MainActivity.class));
+                           // Intent intent = new Intent(AddNotes.this, MainActivity.class);
+                            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                           // startActivity(intent);
                             finish();//correccion de bug al crear la nota, cuando se le daba hacia atras la nota regresaba como editable
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -118,6 +121,7 @@ public class AddNotes extends AppCompatActivity {
         if(item.getItemId() == R.id.close){
             Toast.makeText(this, "Nota no guardada", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            finish();
            // onBackPressed();
         }
 
